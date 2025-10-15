@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Info - Block 5</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="info-container">
+  <div class="info-text">
+    <h3>English</h3>
+    <button class="btn-read" onclick="speakText('en')">Read (EN)</button>
+    <pre id="text-en" style="white-space:pre-wrap;margin-top:10px;">
+Do's and Don'ts
+
+Shell should only be used for small utilities or simple wrapper scripts.
+
+While shell scripting isn’t a development language, it is used for writing various utility scripts throughout Google. This style guide is more a recognition of its use rather than a suggestion that it be used for widespread deployment.
+
+Some guidelines:
+
+If you’re mostly calling other utilities and are doing relatively little data manipulation, shell is an acceptable choice for the task.
+If performance matters, use something other than shell.
+If you are writing a script that is more than 100 lines long, or that uses non-straightforward control flow logic, you should rewrite it in a more structured language now. Bear in mind that scripts grow. Rewrite your script early to avoid a more time-consuming rewrite at a later date.
+When assessing the complexity of your code (e.g. to decide whether to switch languages) consider whether the code is easily maintainable by people other than its author.
+
+Shell should not be used for:
+
+Resource-intensive tasks, especially where speed is a factor (sorting, hashing, recursion)
+Complex applications, where structured programming is a necessity (type-checking of variables, function prototypes, etc.)
+Mission-critical applications upon which you are betting the future of the company
+Situations where security is important, where you need to guarantee the integrity of your system and protect against intrusion, cracking, and vandalism
+Need native support for multi-dimensional arrays
+Need data structures, such as linked lists or trees
+Need to generate / manipulate graphics or GUIs
+Need to use libraries or interface with legacy code
+Proprietary, closed-source applications (Shell scripts put the source code right out in the open for all the world to see.)
+    </pre>
+  </div>
+
+  <div class="info-text">
+    <h3>Español</h3>
+    <button class="btn-read" onclick="speakText('es')">Read (ES)</button>
+    <pre id="text-es" style="white-space:pre-wrap;margin-top:10px;">
+Lo que se debe y no se debe hacer
+
+Shell debe usarse solo para utilidades pequeñas o scripts simples de envoltura.
+
+Aunque el shell scripting no es un lenguaje de desarrollo, se utiliza para escribir varios scripts de utilidad. Esta guía de estilo reconoce su uso, más que recomendar su implementación generalizada.
+
+Algunas pautas:
+
+- Si mayormente llamas a otras utilidades y haces poca manipulación de datos, el shell es una opción aceptable.
+- Si el rendimiento es importante, usa otro lenguaje.
+- Si tu script tiene más de 100 líneas o usa lógica de control no directa, reescríbelo ahora en un lenguaje más estructurado. Ten en cuenta que los scripts crecen; reescríbelo temprano para evitar un retrabajo mayor después.
+- Al evaluar la complejidad, considera si el código es fácilmente mantenible por otras personas además del autor.
+
+El shell NO debería usarse para:
+
+- Tareas intensivas en recursos (ordenamiento, hashing, recursión)
+- Aplicaciones complejas que requieren programación estructurada
+- Aplicaciones críticas para la misión de la empresa
+- Situaciones donde la seguridad es crítica
+- Necesidad de arreglos multidimensionales
+- Necesidad de estructuras de datos (listas enlazadas, árboles)
+- Generar o manipular gráficos o GUIs
+- Usar librerías o interactuar con código heredado
+- Aplicaciones propietarias / código cerrado (los scripts exponen el código fuente)
+    </pre>
+  </div>
+</div>
+
+<script>
+function speakText(lang) {
+  const text = lang === 'es' ? document.getElementById('text-es').innerText : document.getElementById('text-en').innerText;
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = lang === 'es' ? 'es-ES' : 'en-US';
+  speechSynthesis.speak(utter);
+}
+</script>
+</body>
+</html>

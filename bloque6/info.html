@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Information</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="info-container">
+    <div class="info-text">
+        <button class="btn-read" onclick="speakText('en')">Read</button>
+        <p id="text-en">
+Shell Usage Guidelines
+
+- The file /etc/shells provides an overview of known shells on a Linux system.
+- You can switch from one shell to another in the active terminal by entering the name of the new shell.
+- User-specific startup files include ~/.profile and ~/.bashrc.
+- Shell should NOT be used for:
+    * Resource-intensive tasks
+    * Complex applications requiring structured programming
+    * Mission-critical applications
+    * Cases requiring advanced data structures like linked lists or trees
+- Shell CAN be used for small utilities or simple scripts where you mostly call other utilities and perform minimal data manipulation.
+        </p>
+    </div>
+    <div class="info-text">
+        <button class="btn-read" onclick="speakText('es')">Read</button>
+        <p id="text-es">
+Guía de Uso del Shell
+
+- El archivo /etc/shells proporciona un resumen de los shells conocidos en un sistema Linux.
+- Puedes cambiar de un shell a otro en el terminal activo ingresando el nombre del nuevo shell.
+- Los archivos de inicio específicos del usuario incluyen ~/.profile y ~/.bashrc.
+- El shell NO debe usarse para:
+    * Tareas que consumen muchos recursos
+    * Aplicaciones complejas que requieren programación estructurada
+    * Aplicaciones críticas para la misión de la empresa
+    * Casos que requieren estructuras de datos avanzadas como listas enlazadas o árboles
+- El shell SÍ puede usarse para utilidades pequeñas o scripts simples donde mayormente se llaman otras utilidades y se realiza poca manipulación de datos.
+        </p>
+    </div>
+</div>
+
+<script>
+function speakText(lang){
+    let text = lang==='en' ? document.getElementById("text-en").innerText : document.getElementById("text-es").innerText;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang==='en' ? 'en-US' : 'es-MX';
+    speechSynthesis.speak(utter);
+}
+</script>
+</body>
+</html>

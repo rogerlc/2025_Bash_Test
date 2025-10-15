@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Info - Bloque 7</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .info-container { display: flex; gap: 20px; padding: 20px; }
+  .info-text { flex: 1; background: #fefefe; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow-y: auto; max-height: 90vh; }
+  .btn-read { margin-bottom: 15px; padding: 8px 15px; background:#6c5ce7; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold; }
+  code { background:#f0f0f0; padding:2px 4px; border-radius:4px; }
+</style>
+</head>
+<body>
+<div class="info-container">
+
+  <!-- English -->
+  <div class="info-text">
+    <button class="btn-read" onclick="speakText('en')">Read</button>
+    <p>
+    <strong>Script Development and Invocation:</strong><br>
+    In the simplest case, a script is nothing more than a list of system commands stored in a file. At the very least, this saves the effort of retyping that particular sequence of commands each time it is invoked.
+    </p>
+    <p>
+    The sha-bang (#!) at the head of a script tells your system that this file is a set of commands to be fed to the command interpreter indicated. Immediately following the sha-bang is a path name.
+    </p>
+    <ul>
+      <li>#!/bin/sh</li>
+      <li>#!/bin/bash</li>
+      <li>#!/usr/bin/perl</li>
+      <li>#!/usr/bin/env python</li>
+      <li>#!/bin/sed -f</li>
+      <li>#!/bin/awk -f</li>
+    </ul>
+    <p>Scripts can be invoked by <code>sh scriptname</code>, <code>bash scriptname</code>, or made executable with <code>chmod</code> and run as <code>./scriptname</code>.</p>
+
+    <p><strong>Bash Options:</strong><br>
+    Options are settings that change shell and/or script behavior. The <code>set</code> command enables options within a script. Enable an option with <code>set -o option-name</code> or <code>set -option-abbrev</code>.
+    </p>
+    <ul>
+      <li>set -o verbose</li>
+      <li>set -v</li>
+    </ul>
+    <p>Disable an option: <code>set +o option-name</code> or <code>set +option-abbrev</code></p>
+    <ul>
+      <li>set +o verbose</li>
+      <li>set +v</li>
+    </ul>
+    <p>Example 1: <code>set -e</code> stops the script on any error.<br>
+    Example 2: default is <code>+e</code>, continues even on errors.</p>
+
+    <p><strong>Exit Codes:</strong><br>
+      <strong>1</strong> – Catchall for general errors, e.g., <code>let "var1 = 1/0"</code><br>
+      <strong>2</strong> – Misuse of shell builtins, e.g., <code>empty_function() {}</code><br>
+      <strong>126</strong> – Command cannot execute, e.g., <code>/dev/null</code><br>
+      <strong>127</strong> – Command not found, e.g., <code>Illegal_command</code><br>
+      <strong>128</strong> – Invalid argument to exit, e.g., <code>exit 3.14159</code><br>
+      <strong>128+n</strong> – Fatal error signal n, e.g., <code>kill -9 $PPID</code><br>
+      <strong>130</strong> – Script terminated by Control-C, e.g., <code>Ctl-C</code><br>
+      <strong>255</strong> – Exit status out of range, e.g., <code>exit -1</code>
+    </p>
+  </div>
+
+  <!-- Español -->
+  <div class="info-text">
+    <button class="btn-read" onclick="speakText('es')">Leer</button>
+    <p>
+    <strong>Desarrollo e invocación de scripts:</strong><br>
+    En el caso más simple, un script no es más que una lista de comandos del sistema almacenados en un archivo. Esto ahorra el esfuerzo de volver a escribir esa secuencia cada vez que se invoca.
+    </p>
+    <p>
+    El sha-bang (#!) al inicio de un script indica al sistema que este archivo es un conjunto de comandos que serán enviados al intérprete de comandos indicado. Inmediatamente después del sha-bang va la ruta del intérprete.
+    </p>
+    <ul>
+      <li>#!/bin/sh</li>
+      <li>#!/bin/bash</li>
+      <li>#!/usr/bin/perl</li>
+      <li>#!/usr/bin/env python</li>
+      <li>#!/bin/sed -f</li>
+      <li>#!/bin/awk -f</li>
+    </ul>
+    <p>Los scripts pueden invocarse con <code>sh scriptname</code>, <code>bash scriptname</code> o hacerse ejecutables con <code>chmod</code> y ejecutarse como <code>./scriptname</code>.</p>
+
+    <p><strong>Opciones de Bash:</strong><br>
+    Las opciones cambian el comportamiento del shell y/o del script. El comando <code>set</code> habilita opciones dentro del script. Para habilitar una opción: <code>set -o nombre-opcion</code> o <code>set -abreviatura</code>.
+    </p>
+    <ul>
+      <li>set -o verbose</li>
+      <li>set -v</li>
+    </ul>
+    <p>Para deshabilitar una opción: <code>set +o nombre-opcion</code> o <code>set +abreviatura</code></p>
+    <ul>
+      <li>set +o verbose</li>
+      <li>set +v</li>
+    </ul>
+    <p>Ejemplo 1: <code>set -e</code> detiene el script ante cualquier error.<br>
+    Ejemplo 2: valor predeterminado <code>+e</code>, continúa incluso con errores.</p>
+
+    <p><strong>Códigos de salida:</strong><br>
+      <strong>1</strong> – Error general, ejemplo: <code>let "var1 = 1/0"</code><br>
+      <strong>2</strong> – Uso incorrecto de builtins, ejemplo: <code>empty_function() {}</code><br>
+      <strong>126</strong> – Comando no ejecutable, ejemplo: <code>/dev/null</code><br>
+      <strong>127</strong> – Comando no encontrado, ejemplo: <code>Illegal_command</code><br>
+      <strong>128</strong> – Argumento inválido para exit, ejemplo: <code>exit 3.14159</code><br>
+      <strong>128+n</strong> – Señal fatal n, ejemplo: <code>kill -9 $PPID</code><br>
+      <strong>130</strong> – Script terminado con Control-C, ejemplo: <code>Ctl-C</code><br>
+      <strong>255</strong> – Estado de salida fuera de rango, ejemplo: <code>exit -1</code>
+    </p>
+  </div>
+
+</div>
+
+<script>
+function speakText(lang){
+    let text="";
+    if(lang==='en'){ text = document.querySelector('.info-text:first-child').innerText; }
+    if(lang==='es'){ text = document.querySelector('.info-text:last-child').innerText; }
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = (lang==='en') ? 'en-US' : 'es-MX';
+    speechSynthesis.speak(utter);
+}
+</script>
+</body>
+</html>

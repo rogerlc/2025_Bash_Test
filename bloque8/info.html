@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Info - Bloque 8</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .info-container { display:flex; gap:18px; padding:18px; }
+  .info-text { background:#fff; border-radius:10px; padding:16px; flex:1; box-shadow:0 2px 6px rgba(0,0,0,0.06); max-height:86vh; overflow:auto; }
+  .btn-read { display:inline-block; margin-bottom:12px; padding:8px 12px; background:#6c5ce7; color:#fff; border-radius:6px; border:none; cursor:pointer; font-weight:700; }
+  code { background:#f1f1f1; padding:2px 6px; border-radius:4px; }
+  h2 { margin-top:0; color:#0b72d1; }
+</style>
+</head>
+<body>
+
+<div style="max-width:1100px;margin:12px auto;">
+  <h1 style="text-align:center;">Bloque 8 — Variables y Caracteres Especiales (Info)</h1>
+
+  <div class="info-container">
+    <!-- English left -->
+    <div class="info-text" id="info-en">
+      <button class="btn-read" onclick="speak('en')">Read</button>
+      <h2>Special Characters & Variables (English)</h2>
+
+      <p><strong>What makes a character special?</strong><br>
+      If it has a meaning beyond its literal meaning, a meta-meaning, then we refer to it as a special character. Along with commands and keywords, special characters are building blocks of Bash scripts.</p>
+
+      <p><strong>Table of Special Characters:</strong></p>
+      <ul>
+        <li>comments: <code>#</code></li>
+        <li>command separator: <code>;</code></li>
+        <li>terminator in a case option: <code>.</code></li>
+        <li>"dot" command: <code>./file</code> — "dot" as component of a filename</li>
+        <li>partial quoting: <code>""</code></li>
+        <li>full quoting: <code>''</code></li>
+        <li>comma operator: <code>\</code></li>
+        <li>escape (backslash): <code>\\</code></li>
+        <li>backticks: <code>`command`</code></li>
+        <li>null command: <code>:</code></li>
+        <li>dollar sign: <code>$</code></li>
+      </ul>
+
+      <h3>Variables</h3>
+      <p>Variables are how programming and scripting languages represent data. A variable is nothing more than a label, a name assigned to a location or set of locations in computer memory holding an item of data.</p>
+
+      <p><strong>Assignment examples:</strong></p>
+      <pre>
+var=value
+var2="one two three"
+var3=one\ two\ three
+      </pre>
+
+      <p><strong>Referencing a variable:</strong></p>
+      <pre>
+echo $var
+echo ${var}
+      </pre>
+
+      <p><strong>Indirect referencing example:</strong></p>
+      <pre>
+var=value
+value=hello
+eval b=\$$var
+echo $b
+      </pre>
+
+      <h3>Variable types</h3>
+      <p>Bash does not segregate variables by type; essentially they are character strings, but Bash permits arithmetic operations if the value contains only digits.</p>
+
+      <p>Use <code>declare -i</code> (or <code>typeset -i</code>) to force integer arithmetic:</p>
+      <pre>
+$ n=6/3
+$ echo "n = $n"
+n = 6/3
+
+$ declare -i n
+$ n=6/3
+$ echo "n = $n"
+n = 2
+      </pre>
+
+      <h3>Manipulating strings</h3>
+      <p>Bash supports many string operations. Examples:</p>
+      <ul>
+        <li><code>${#var}</code> — length of <code>$var</code>.</li>
+        <li><code>${var:position:length}</code> — substring (0-based).</li>
+        <li><code>${var#Pattern}</code> / <code>${var##Pattern}</code> — remove shortest/longest match from front.</li>
+        <li><code>${var%Pattern}</code> / <code>${var%%Pattern}</code> — remove shortest/longest match from back.</li>
+        <li><code>${var/Pattern/Replacement}</code> / <code>${var//Pattern/Replacement}</code> — replace first/all matches.</li>
+        <li><code>${var/#Pattern/Replacement}</code> — replace prefix if it matches.</li>
+        <li><code>${var/%Pattern/Replacement}</code> — replace suffix if it matches.</li>
+      </ul>
+
+      <h3>Parameter substitution</h3>
+      <p>Common forms:</p>
+      <ul>
+        <li><code>${parameter-default}</code>, <code>${parameter:-default}</code></li>
+        <li><code>${parameter=default}</code>, <code>${parameter:=default}</code></li>
+        <li><code>${parameter+alt}</code>, <code>${parameter:+alt}</code></li>
+        <li><code>${parameter?err_msg}</code>, <code>${parameter:?err_msg}</code></li>
+      </ul>
+
+      <p>Examples of use: provide default filenames, assign default values, test for presence or non-empty, abort with message, etc.</p>
+
+      <h3>Variable categories</h3>
+      <ul>
+        <li>Local variables (visible only inside a function)</li>
+        <li>Environment variables (affect shell/processes)</li>
+        <li>Positional parameters ($0, $1, $2 ...)</li>
+        <li>Built-in variables and special shell variables</li>
+      </ul>
+
+      <h3>Arrays</h3>
+      <p>An array stores multiple values; zero-based indexing.</p>
+      <pre>
+$ my_array=( zero one two three four five )
+$ my_array[6]=six
+$ echo ${my_array[6]}
+six
+$ echo ${my_array[@]}
+zero one two three four five six
+$ echo ${#my_array[@]}
+7
+      </pre>
+
+      <h3>Built-in variables</h3>
+      <ul>
+        <li><code>$EDITOR</code>, <code>$HOME</code>, <code>$HOSTNAME</code>, <code>$IFS</code>, <code>$PATH</code>, <code>$RANDOM</code></li>
+      </ul>
+
+      <h3>Special shell variables</h3>
+      <ul>
+        <li><code>$?</code> — return value (exit status)</li>
+        <li><code>$$</code> — PID of the script</li>
+        <li><code>$-</code> — flags passed to the shell (set)</li>
+        <li><code>$!</code> — PID of last background job</li>
+        <li><code>$*</code> and <code>$@</code> — all positional parameters</li>
+      </ul>
+    </div>
+
+    <!-- Spanish right -->
+    <div class="info-text" id="info-es">
+      <button class="btn-read" onclick="speak('es')">Leer</button>
+      <h2>Caracteres especiales y variables (Español)</h2>
+
+      <p><strong>¿Qué hace que un carácter sea especial?</strong><br>
+      Si tiene un significado más allá de su sentido literal —un meta-significado— lo llamamos carácter especial. Junto con comandos y palabras clave, los caracteres especiales son piezas básicas en scripts Bash.</p>
+
+      <p><strong>Tabla de caracteres especiales:</strong></p>
+      <ul>
+        <li>comentarios: <code>#</code></li>
+        <li>separador de comandos: <code>;</code></li>
+        <li>terminador en una opción case: <code>.</code></li>
+        <li>comando 'dot': <code>./file</code> — 'punto' como componente en un nombre de archivo</li>
+        <li>comillas parciales: <code>""</code></li>
+        <li>comillas totales: <code>''</code></li>
+        <li>operador coma (escape): <code>\</code></li>
+        <li>escape (barra invertida): <code>\\</code></li>
+        <li>backticks: <code>`comando`</code></li>
+        <li>comando nulo: <code>:</code></li>
+        <li>signo de dólar: <code>$</code></li>
+      </ul>
+
+      <h3>Variables</h3>
+      <p>Las variables representan datos: un nombre (etiqueta) que apunta a una ubicación en memoria que contiene un dato.</p>
+
+      <p><strong>Ejemplos de asignación:</strong></p>
+      <pre>
+var=value
+var2="one two three"
+var3=one\ two\ three
+      </pre>
+
+      <p><strong>Referenciar una variable:</strong></p>
+      <pre>
+echo $var
+echo ${var}
+      </pre>
+
+      <p><strong>Referencia indirecta:</strong></p>
+      <pre>
+var=value
+value=hello
+eval b=\$$var
+echo $b
+      </pre>
+
+      <h3>Tipos y manejo</h3>
+      <p>Bash no separa variables por tipo; esencialmente son cadenas de caracteres, aunque Bash permite operaciones aritméticas si el valor contiene solo dígitos.</p>
+
+      <p>Usa <code>declare -i</code> para forzar evaluación entera:</p>
+      <pre>
+$ n=6/3
+$ echo "n = $n"
+n = 6/3
+
+$ declare -i n
+$ n=6/3
+$ echo "n = $n"
+n = 2
+      </pre>
+
+      <h3>Manipulación de cadenas</h3>
+      <p>Bash tiene muchas operaciones para strings (longitud, subcadena, borrado por patrón, reemplazo, prefijo/sufijo, etc.). Ejemplos: <code>${#var}</code>, <code>${var:pos:len}</code>, <code>${var#pattern}</code>, <code>${var%pattern}</code>, <code>${var//pat/repl}</code>, <code>${var/#pat/repl}</code>, <code>${var/%pat/repl}</code>.</p>
+
+      <h3>Sustitución de parámetros</h3>
+      <p>Formas comunes: <code>${parameter-default}</code>, <code>${parameter:-default}</code>, <code>${parameter=default}</code>, <code>${parameter:=default}</code>, <code>${parameter+alt}</code>, <code>${parameter:+alt}</code>, <code>${parameter?err_msg}</code>, <code>${parameter:?err_msg}</code>. Se usan para valores por defecto, asignaciones condicionales y comprobaciones con mensajes de error.</p>
+
+      <h3>Categorías de variables</h3>
+      <ul>
+        <li>Locales (visibles solo dentro de una función)</li>
+        <li>Variables de entorno (afectan el comportamiento del shell/procesos)</li>
+        <li>Parámetros posicionales ($0, $1, $2...)</li>
+        <li>Variables integradas y variables especiales del shell</li>
+      </ul>
+
+      <h3>Arrays</h3>
+      <pre>
+$ my_array=( zero one two three four five )
+$ my_array[6]=six
+$ echo ${my_array[6]}         # six
+$ echo ${my_array[@]}         # zero one two three four five six
+$ echo ${#my_array[@]}        # 7
+      </pre>
+
+      <h3>Variables integradas</h3>
+      <ul>
+        <li><code>$EDITOR</code>, <code>$HOME</code>, <code>$HOSTNAME</code>, <code>$IFS</code>, <code>$PATH</code>, <code>$RANDOM</code></li>
+      </ul>
+
+      <h3>Variables especiales del shell</h3>
+      <ul>
+        <li><code>$?</code> — estado de salida del último comando</li>
+        <li><code>$$</code> — PID del script</li>
+        <li><code>$-</code> — flags pasadas al shell</li>
+        <li><code>$!</code> — PID del último trabajo en segundo plano</li>
+        <li><code>$*</code> y <code>$@</code> — todos los parámetros posicionales</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+function speak(lang){
+  const node = (lang==='en') ? document.getElementById('info-en') : document.getElementById('info-es');
+  if(!node) return;
+  const text = node.innerText.replace(/\s+/g,' ').trim();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = (lang==='en') ? 'en-US' : 'es-MX';
+  speechSynthesis.speak(u);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Info - Bloque 9</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .info-container{ max-width:1100px; margin:14px auto; display:flex; gap:16px; }
+  .info-text{ background:#fff; padding:14px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.06); flex:1; max-height:84vh; overflow:auto; }
+  .btn-read{ display:inline-block; margin-bottom:12px; padding:8px 12px; background:#6c5ce7; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:700; }
+  h2{ margin-top:0; color:#0b72d1; }
+  pre{ white-space:pre-wrap; word-wrap:break-word; background:#fafafa; padding:8px; border-radius:6px; }
+</style>
+</head>
+<body>
+<div style="max-width:1100px;margin:12px auto;padding:8px;">
+  <h1 style="text-align:center;">Bloque 9 — Conditions, Tests y Loops (Info)</h1>
+
+  <div class="info-container">
+    <!-- English left -->
+    <div class="info-text" id="info-en">
+      <button class="btn-read" onclick="speak('en')">Read</button>
+      <h2>Conditions</h2>
+      <p>In terms of conditions bash has: test command or square brackets [ ] , extended test command [[ ]], double parentheses (( )) and let command, if/then construct, case statements, list constructs.</p>
+
+      <h3>TEST COMMAND</h3>
+      <p>'[' (left bracket special character) is a synonym for test, and a built-in for efficiency reasons.</p>
+      <p>This command considers its arguments as comparison expressions or file tests and returns an exit status corresponding to the result (0 true, 1 false).</p>
+
+      <pre>
+    test EXPRESSION
+    [ EXPRESSION ]
+      </pre>
+
+      <p>Examples:</p>
+      <pre>
+$ ls
+file.txt
+
+$ test -f file.txt && echo "File exists"
+File exists
+
+$ [ -f file.txt ] && echo Indeed
+Indeed
+
+$ [ -f file1.txt ] || echo No such file
+No such file
+      </pre>
+
+      <p>Checking exit status of a command:</p>
+      <pre>
+ifup eth0
+[ $? -ne 0 ] && rc=1
+      </pre>
+
+      <h3>TEST COMMAND EXPRESSIONS</h3>
+      <p>Expressions include: -n STRING (length nonzero), -z STRING (length zero), -d FILE (is directory), -f FILE (is regular file), -u FILE (set-user-ID bit is set), logical -a (AND), -o (OR), parentheses for grouping, and so on.</p>
+
+      <h3>EXTENDED TEST COMMAND</h3>
+      <p>[[ ... ]] is an extended test (a keyword). It avoids many logic errors: &&, ||, <, > work inside [[ ]]. It helps avoid quoting issues with strings containing spaces.</p>
+
+      <h3>DOUBLE PARENTHESES</h3>
+      <p>(( ... )) and let return an exit status: non-zero numeric result gives status 0 (true), zero gives status 1 (false). Use for arithmetic evaluation.</p>
+
+      <pre>
+$ (( 0 && 1 ))
+$ echo $?
+1
+      </pre>
+
+      <h3>IF/THEN</h3>
+      <p>The if/then construct runs commands when exit status is 0. Syntax:</p>
+      <pre>
+if [ condition1 ]; then
+  command1
+elif [ condition2 ]; then
+  command2
+else
+  default-command
+fi
+      </pre>
+
+      <p>Examples from init scripts show using [[ ... ]] and negation to check conditions and call modprobe, exit, etc.</p>
+
+      <h3>CASE</h3>
+      <p>case EXPRESSION in pattern) ... ;; ... esac — clauses end with ';;' and the statement ends with 'esac'. Useful for parsing arguments.</p>
+
+      <h3>LIST CONSTRUCTS</h3>
+      <p>'and list' uses &&: commands run until one fails. 'or list' uses ||: commands run until one succeeds. These replace nested ifs in many cases.</p>
+
+      <h3>LOOPS</h3>
+      <p>Loops iterate commands while a control condition is true (while), until it becomes true (until), or for a list of values (for).</p>
+
+      <h4>FOR LOOP</h4>
+      <pre>
+for arg in [list]; do
+  commands...
+done
+      </pre>
+
+      <h4>WHILE LOOP</h4>
+      <pre>
+while [ condition ]; do
+  commands...
+done
+      </pre>
+
+      <h4>UNTIL LOOP</h4>
+      <pre>
+until [ condition-is-true ]; do
+  commands...
+done
+      </pre>
+
+      <h3>LOOP CONTROL</h3>
+      <p>'break' exits loop; 'continue' jumps to next iteration.</p>
+
+      <pre>
+$ for i in {1..5}; do
+  echo $i
+  [[ $i -eq 3 ]] && break
+done
+# output: 1 2 3
+      </pre>
+    </div>
+
+    <!-- Spanish right -->
+    <div class="info-text" id="info-es">
+      <button class="btn-read" onclick="speak('es')">Leer</button>
+      <h2>Conditions (Condiciones)</h2>
+      <p>En términos de condiciones, bash tiene: el comando test o corchetes [ ], el comando extendido [[ ]], paréntesis dobles (( )) y let, la construcción if/then, sentencias case y construcciones de listas.</p>
+
+      <h3>COMANDO TEST</h3>
+      <p>'[' (corchete izquierdo) es sinónimo de test y es un builtin por eficiencia.</p>
+      <p>Considera sus argumentos como expresiones de comparación o pruebas de archivos y devuelve un estado de salida (0 verdadero, 1 falso).</p>
+
+      <pre>
+    test EXPRESSION
+    [ EXPRESSION ]
+      </pre>
+
+      <p>Ejemplos:</p>
+      <pre>
+$ ls
+file.txt
+
+$ test -f file.txt && echo "File exists"
+File exists
+
+$ [ -f file.txt ] && echo Indeed
+Indeed
+
+$ [ -f file1.txt ] || echo No such file
+No such file
+      </pre>
+
+      <p>Comprobación del estado de salida de un comando:</p>
+      <pre>
+ifup eth0
+[ $? -ne 0 ] && rc=1
+      </pre>
+
+      <h3>EXPRESIONES DE TEST</h3>
+      <p>Incluyen: -n STRING (longitud no nula), -z STRING (longitud cero), -d FILE (es directorio), -f FILE (archivo regular), -u FILE (set-user-ID), operadores lógicos -a (AND), -o (OR), paréntesis y más.</p>
+
+      <h3>COMANDO TEST EXTENDIDO</h3>
+      <p>[[ ... ]] es un test extendido (keyword). Evita muchos errores lógicos: &&, ||, <, > funcionan dentro de [[ ]] y reduce problemas de quoting con espacios.</p>
+
+      <h3>PARÉNTESIS DOBLES</h3>
+      <p>(( ... )) y let devuelven estado según la evaluación aritmética: resultado distinto de cero => estado 0 (verdadero), cero => estado 1 (falso). Útil para comparaciones aritméticas.</p>
+
+      <pre>
+$ (( 0 && 1 ))
+$ echo $?
+1
+      </pre>
+
+      <h3>IF/THEN</h3>
+      <p>if/then ejecuta comandos si el estado de salida es 0. Sintaxis mostrada arriba con elif y else.</p>
+
+      <h3>CASE</h3>
+      <p>case EXPRESSION in pattern) ... ;; ... esac — cada cláusula termina con ';;' y el case finaliza con 'esac'. Muy útil para argumentos.</p>
+
+      <h3>CONSTRUCCIONES DE LISTA</h3>
+      <p>La 'and list' (&&) ejecuta comandos en cadena hasta encontrar un fallo; la 'or list' (||) ejecuta hasta que uno tenga éxito. Suelen reemplazar ifs anidados.</p>
+
+      <h3>BÚCLES (LOOPS)</h3>
+      <p>Bucle for para listas, while para repetir mientras la condición sea verdadera y until para repetir mientras la condición sea falsa (opuesto a while).</p>
+
+      <h4>FOR</h4>
+      <pre>
+for arg in [list]; do
+  commands...
+done
+      </pre>
+
+      <h4>WHILE</h4>
+      <pre>
+while [ condition ]; do
+  commands...
+done
+      </pre>
+
+      <h4>UNTIL</h4>
+      <pre>
+until [ condition-is-true ]; do
+  commands...
+done
+      </pre>
+
+      <h3>CONTROL DE BUCLES</h3>
+      <p>'break' termina el bucle; 'continue' salta a la siguiente iteración.</p>
+
+      <pre>
+$ for i in {1..5}; do
+  echo $i
+  [[ $i -eq 3 ]] && break
+done
+# salida: 1 2 3
+      </pre>
+    </div>
+  </div>
+</div>
+
+<script>
+function speak(lang){
+  const node = (lang === 'en') ? document.getElementById('info-en') : document.getElementById('info-es');
+  if(!node) return;
+  const text = node.innerText.replace(/\s+/g,' ').trim();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = (lang === 'en') ? 'en-US' : 'es-MX';
+  speechSynthesis.speak(u);
+}
+</script>
+</body>
+</html>

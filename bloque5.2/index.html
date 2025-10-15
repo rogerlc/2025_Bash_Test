@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Block 5 - Do's and Don'ts</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Do's and Don'ts</h1>
+        <div id="question-container">
+            <p id="question-text"></p>
+            <div id="options-container"></div>
+            <div class="buttons">
+                <button id="read-btn" onclick="readQuestion()">Read</button>
+                <button id="translate-btn" onclick="translateQuestion()">Translate</button>
+                <button id="pronounce-btn" onclick="pronounceAnswer()">Pronounce</button>
+            </div>
+        </div>
+
+        <div class="control-buttons">
+            <button onclick="grade()">Grade</button>
+            <button onclick="reviewIncorrect()">Review Incorrect</button>
+            <button onclick="resetQuiz()">Reset</button>
+            <button onclick="window.location.href='info.html'">Info (<span id="correct-count">0</span> correct / <span id="incorrect-count">0</span> incorrect)</button>
+        </div>
+    </div>
+
+<script src="questions.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

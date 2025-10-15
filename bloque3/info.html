@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Information</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="info-container">
+    <div class="info-text">
+        <button class="btn-read" onclick="speakText('en')">Read</button>
+        <p id="text-en">
+Startup files are scripts that are read and executed by Bash when it starts. The following subsections describe different ways to start the shell, and the startup files that are read consequently.
+
+Invoked as an interactive login shell, or with --login
+Interactive means you can enter commands. The shell is not running because a script has been activated.
+
+A login shell means that you got the shell after authenticating to the system, usually by giving your user name and password.
+
+Files read:
+/etc/profile
+~/.bash_profile, ~/.bash_login or ~/.profile (first existing readable file is read)
+/~.bash_logout (upon logout)
+
+Invoked as an interactive non-login shell
+A non-login shell means that you did not have to authenticate to the system. For instance, when you open a terminal using an icon, or a menu item, that is a non-login shell.
+
+Files read:
+~/.bashrc
+This file is usually referred to in ~/.bash_profile.
+        </p>
+    </div>
+    <div class="info-text">
+        <button class="btn-read" onclick="speakText('es')">Read</button>
+        <p id="text-es">
+Los archivos de inicio son scripts que Bash lee y ejecuta cuando se inicia. Las siguientes subsecciones describen las diferentes formas de iniciar el shell y los archivos de inicio que se leen en consecuencia.
+
+Invocado como un shell interactivo de inicio de sesión, o con --login
+Interactivo significa que puedes ingresar comandos. El shell no se está ejecutando porque un script haya sido activado.
+
+Un shell de inicio de sesión significa que obtuviste el shell después de autenticarte en el sistema, generalmente proporcionando tu nombre de usuario y contraseña.
+
+Archivos leídos:
+/etc/profile
+~/.bash_profile, ~/.bash_login o ~/.profile (se lee el primero que exista y sea legible)
+/~.bash_logout (al cerrar sesión)
+
+Invocado como un shell interactivo sin inicio de sesión
+Un shell sin inicio de sesión significa que no tuviste que autenticarte en el sistema. Por ejemplo, cuando abres una terminal usando un icono o un elemento del menú, eso es un shell sin inicio de sesión.
+
+Archivos leídos:
+~/.bashrc
+Este archivo suele ser referenciado en ~/.bash_profile.
+        </p>
+    </div>
+</div>
+
+<script>
+function speakText(lang){
+    let text = lang==='en' ? document.getElementById("text-en").innerText : document.getElementById("text-es").innerText;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang==='en' ? 'en-US' : 'es-MX';
+    speechSynthesis.speak(utter);
+}
+</script>
+</body>
+</html>

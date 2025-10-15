@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Information</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="info-container">
+    <div class="info-text">
+        <button class="btn-read" onclick="speakText('en')">Read</button>
+        <p id="text-en">
+The UNIX shell program interprets user commands, which are either directly entered by the user, or which can be read from a file called the shell script or shell program. Shell scripts are interpreted, not compiled. The shell reads commands from the script line per line and searches for those commands on the system, while a compiler converts a program into machine readable form, an executable file - which may then be used in a shell script. Apart from passing commands to the kernel, the main task of a shell is providing a user environment, which can be configured individually using shell resource configuration files.
+        </p>
+    </div>
+    <div class="info-text">
+        <button class="btn-read" onclick="speakText('es')">Read</button>
+        <p id="text-es">
+El programa de shell de UNIX interpreta los comandos del usuario, que son ingresados directamente por el usuario o pueden leerse desde un archivo llamado script de shell o programa de shell. Los scripts de shell son interpretados, no compilados. El shell lee los comandos del script línea por línea y busca esos comandos en el sistema, mientras que un compilador convierte un programa en una forma legible por la máquina, un archivo ejecutable, que luego puede usarse en un script de shell. Además de pasar comandos al kernel, la tarea principal de un shell es proporcionar un entorno de usuario, que puede configurarse individualmente usando archivos de configuración de recursos del shell.
+        </p>
+    </div>
+</div>
+
+<script>
+function speakText(lang){
+    let text = lang==='en' ? document.getElementById("text-en").innerText : document.getElementById("text-es").innerText;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang==='en' ? 'en-US' : 'es-MX';
+    speechSynthesis.speak(utter);
+}
+</script>
+</body>
+</html>

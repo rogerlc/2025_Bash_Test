@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>bloque12 - Environment · Comments · Formatting</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>bloque12 — Environment · Comments · Formatting</h1>
+  </header>
+
+  <main id="questions-container"></main>
+
+  <footer>
+    <button id="grade" class="btn-green">Grade</button>
+    <button id="review" class="btn-red">Review Incorrect</button>
+    <button id="reset" class="btn-yellow">Reset</button>
+    <button id="info" class="btn-info">Info(0 correct/0 incorrect)</button>
+  </footer>
+
+  <!-- Pronounce modal -->
+  <div id="pronounce-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="pronounce-close">&times;</span>
+      <h3>Pronunciation Result</h3>
+      <div id="pronounce-result" class="pronounce-result"></div>
+    </div>
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

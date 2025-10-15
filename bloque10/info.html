@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Info - I/O Redirection & Functions</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div style="max-width:1100px;margin:12px auto;padding:8px;">
+  <h1 style="text-align:center;">I/O Redirection & Functions (Info)</h1>
+
+  <div class="info-container">
+    <!-- English left -->
+    <div class="info-text" id="info-en">
+      <button class="btn-read" onclick="speak('en')">Read</button>
+      <h2>I/O Redirection</h2>
+      <p>There are always three default files open: stdin (the keyboard), stdout (the screen), and stderr (error messages). These and other open files can be redirected. Each file descriptor is a number: 0 for stdin, 1 for stdout, and 2 for stderr. Additional descriptors (3–9) can be used temporarily and restored later.</p>
+
+      <h3>Redirecting input and output</h3>
+      <p>Use '<' to feed a file as stdin and '>' to redirect stdout to a file (truncating). Use '>>' to append. Combine with '2>&1' or '&>' to redirect stderr together with stdout. Use pipes '|' to chain commands.</p>
+
+      <h3>Here-documents and here-strings</h3>
+      <p>A here-document (<<EOF) supplies multiple lines as stdin to a command. A here-string (<<<) feeds a single expanded word/string to stdin.</p>
+
+      <h2>Functions</h2>
+      <p>A function is a subroutine: a block of commands that can accept positional arguments ($1,$2,...) and returns an exit status (via return or last command exit). 'exit' inside a function exits the whole script; 'return' returns a status to the caller.</p>
+    </div>
+
+    <!-- Spanish right -->
+    <div class="info-text" id="info-es">
+      <button class="btn-read" onclick="speak('es')">Leer</button>
+      <h2>Redirección I/O</h2>
+      <p>Siempre hay tres archivos abiertos por defecto: stdin (teclado), stdout (pantalla) y stderr (mensajes de error). Estos y otros archivos pueden redirigirse. Cada descriptor es un número: 0 = stdin, 1 = stdout, 2 = stderr. Se pueden usar descriptores adicionales (3–9) temporalmente y luego restaurarlos.</p>
+
+      <h3>Redirigir entrada y salida</h3>
+      <p>Usa '<' para usar un archivo como stdin y '>' para redirigir stdout a un archivo (sobrescribiendo). Usa '>>' para agregar. Combina con '2>&1' o '&>' para redirigir stderr junto con stdout. Usa pipes '|' para encadenar comandos.</p>
+
+      <h3>Here-doc y here-string</h3>
+      <p>Un here-document (<<EOF) proporciona varias líneas como stdin a un comando. Un here-string (<<<) suministra una sola cadena expandida a stdin.</p>
+
+      <h2>Funciones</h2>
+      <p>Una función es una subrutina: un bloque de comandos que puede recibir argumentos posicionales ($1,$2,...) y devuelve un estado de salida (con return o el estado del último comando). exit dentro de una función termina todo el script; return devuelve un estado al llamador.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function speak(lang){
+  const node = (lang === 'en') ? document.getElementById('info-en') : document.getElementById('info-es');
+  if(!node) return;
+  const text = node.innerText.replace(/\s+/g,' ').trim();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = (lang === 'en') ? 'en-US' : 'es-MX';
+  speechSynthesis.speak(u);
+}
+</script>
+</body>
+</html>

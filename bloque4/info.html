@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Info - Block 4</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="info-container">
+  <div class="info-text">
+    <h3>English</h3>
+    <button class="btn-read" onclick="speakText('en')">Read (EN)</button>
+    <pre id="text-en" style="white-space:pre-wrap;margin-top:10px;">
+SHELL is also a programming language:
+
+- The syntax is simple and straightforward
+- Most short scripts work right the first time
+- Debugging is straightforward
+
+The shell program interprets user commands, which are either directly entered by the user, or which can be read from a file called the shell script or shell program.
+
+Shell scripts are interpreted, not compiled. The shell reads commands from the script line per line and searches for those commands on the system, while a compiler converts a program into machine readable form, an executable file - which may then be used in a shell script.
+    </pre>
+  </div>
+
+  <div class="info-text">
+    <h3>Español</h3>
+    <button class="btn-read" onclick="speakText('es')">Read (ES)</button>
+    <pre id="text-es" style="white-space:pre-wrap;margin-top:10px;">
+SHELL también es un lenguaje de programación:
+
+- La sintaxis es simple y directa
+- La mayoría de los scripts cortos funcionan bien desde la primera vez
+- Depurar es sencillo
+
+El programa shell interpreta comandos del usuario, que pueden ser ingresados directamente o leídos desde un archivo llamado script de shell o programa de shell.
+
+Los scripts de shell son interpretados, no compilados. El shell lee los comandos del script línea por línea y los busca en el sistema, mientras que un compilador convierte un programa en una forma legible por máquina, un archivo ejecutable, que luego puede usarse en un script de shell.
+    </pre>
+  </div>
+</div>
+
+<script>
+function speakText(lang) {
+  const text = lang === 'es' ? document.getElementById('text-es').innerText : document.getElementById('text-en').innerText;
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = lang === 'es' ? 'es-MX' : 'en-US';
+  speechSynthesis.speak(utter);
+}
+</script>
+</body>
+</html>

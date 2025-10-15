@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloque 7 - Script Development</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Bloque 7 - Script Development and Exit Codes</h1>
+</header>
+<main>
+  <div id="questions-container"></div>
+  <footer>
+    <button id="grade" class="btn-green">Grade</button>
+    <button id="reset" class="btn-yellow">Reset</button>
+    <button id="review" class="btn-red">Review Incorrect</button>
+    <button id="info" class="btn-info" onclick="window.open('info.html','_blank')">Info</button>
+  </footer>
+</main>
+
+<script src="questions.js"></script>
+<script>
+const container=document.getElementById("questions-container");
+
+function shuffleArray(array) {
+  for(let i=array.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [array[i],array[j]]=[array[j],array[i]];
+  }
+}
+
+questions.forEach((q,i)=>{
+    const div=document.createElement("div");
+    div.classList.add("question"); div.dataset.index=i;
+
+    const p=document.createElement("p"); p.textContent=`${i+1}. ${q.text}`; div.appendChild(p);
+
+    const btnRead=document.createElement("button"); btnRead.textContent="Read"; btnRead.classList.add("btn-read");
+    btnRead.onclick=()=>speak(q.text,"en-US"); div.appendChild(btnRead);
+
+    const btnTranslate=document.createElement("button"); btnTranslate.textContent="Translate"; btnTranslate.classList.add("btn-translate");
+    btnTranslate.onclick=()=>speak(q.translate,"es-MX"); div.appendChild(btnTranslate);
+
+    const btnPronounce=document.createElement("button"); btnPronounce.textContent="Pronounce"; btnPronounce.classList.add("btn-pronounce");
+    btnPronounce.onclick=()=>checkPronounce(q.text); div.appendChild(btnPronounce);
+
+    let options = [...q.options];
+    shuffleArray(options);
+
+    options.forEach(opt=>{
+        const label=document.createElement("label");
+        const checkbox=document.createElement("input"); checkbox.type="checkbox"; checkbox.value=opt;
+        label.appendChild(checkbox); label.appendChild(document.createTextNode(opt));
+        div.appendChild(label);
+    });
+
+    container.appendChild(div);
+});
+
+function speak(text,lang){
+    const utter=new SpeechSynthesisUtterance(text);
+    utter.lang=lang;
+    speechSynthesis.speak(utter);
+}
+
+function checkPronounce(questionText){
+    const recognition=new (window.SpeechRecognition||window.webkitSpeechRecognition)();
+    recognition.lang='en-US'; recognition.interimResults=false; recognition.maxAlternatives=1;
+    recognition.start();
+    recognition.onresult=(event)=>{
+        const transcript=event.results[0][0].transcript;
+        comparePronunciation(questionText,transcript);
+    };
+    recognition.onerror=(event)=>{ alert('Speech Recognition Error: '+event.error); };
+}
+
+function comparePronunciation(original,spoken){
+    const normalize=str=>str.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" ");
+    const originalWords=normalize(original); const spokenWords=normalize(spoken);
+    let html="";
+    originalWords.forEach((word,i)=>{ html+=spokenWords[i]===word ? `<span class="correct-word">${word}</span> ` : `<span class="incorrect-word">${word}</span> `; });
+    const modal=document.getElementById("pronounce-modal"); 
+    let result=document.getElementById("pronounce-result");
+    if(!modal){
+        const m=document.createElement("div"); m.id="pronounce-modal"; m.classList.add("modal");
+        const content=document.createElement("div"); content.classList.add("modal-content");
+        content.innerHTML='<span class="close">&times;</span><p id="pronounce-result"></p>';
+        m.appendChild(content); document.body.appendChild(m);
+        result=document.getElementById("pronounce-result");
+        m.querySelector(".close").onclick=()=>{m.style.display="none";};
+        window.onclick=(event)=>{ if(event.target===m) m.style.display="none"; };
+    }
+    document.getElementById("pronounce-result").innerHTML=html;
+    document.getElementById("pronounce-modal").style.display="block";
+}
+
+document.getElementById("grade").onclick=()=>{ grade(); };
+document.getElementById("reset").onclick=()=>{ reset(); };
+document.getElementById("review").onclick=()=>{ reviewIncorrect(); };
+
+function grade(){
+    let correct=0, incorrect=0;
+    questions.forEach((q,i)=>{
+        const div=container.children[i];
+        const inputs=div.querySelectorAll("input[type=checkbox]");
+        inputs.forEach(inp=>{
+            if(q.correct.includes(inp.value)&&inp.checked){ inp.parentElement.classList.add("correct"); correct++; }
+            else if(q.correct.includes(inp.value)&&!inp.checked){ inp.parentElement.classList.remove("correct"); }
+            else if(!q.correct.includes(inp.value)&&inp.checked){ inp.parentElement.classList.add("incorrect"); incorrect++; }
+            else{ inp.parentElement.classList.remove("incorrect"); }
+        });
+    });
+    alert(`Correct: ${correct}  Incorrect: ${incorrect}`);
+}
+
+function reset(){
+    questions.forEach((q,i)=>{
+        const div=container.children[i];
+        const inputs=div.querySelectorAll("input[type=checkbox]");
+        inputs.forEach(inp=>{
+            inp.checked=false; inp.parentElement.classList.remove("correct","incorrect");
+        });
+        // shuffle options on reset
+        const labels=[...div.querySelectorAll("label")];
+        shuffleArray(labels);
+        labels.forEach(l=>div.appendChild(l));
+    });
+}
+
+function reviewIncorrect(){
+    const w = window.open("", "Review", "width=800,height=600,scrollbars=yes");
+    w.document.write('<html><head><title>Review Incorrect</title><style>body{font-family:sans-serif;padding:20px;} .question-box{background:#fff;padding:15px;margin-bottom:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.1);} .correct-answer{color:green;font-weight:bold;}</style></head><body><h1>Incorrect Questions</h1></body></html>');
+    questions.forEach((q,i)=>{
+        const div=container.children[i];
+        let wrong=false;
+        const inputs=div.querySelectorAll("input[type=checkbox]");
+        inputs.forEach(inp=>{
+            if(q.correct.includes(inp.value)&&!inp.checked) wrong=true;
+            if(!q.correct.includes(inp.value)&&inp.checked) wrong=true;
+        });
+        if(wrong){
+            w.document.body.innerHTML+=`<div class="question-box"><p>${q.text}</p><p class="correct-answer">Correct: ${q.correct.join ? q.correct.join(", ") : q.correct}</p></div>`;
+        }
+    });
+}
+</script>
+</body>
+</html>

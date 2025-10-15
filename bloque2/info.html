@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Information</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="info-container">
+    <div class="info-text">
+        <button class="btn-read" onclick="speakText('en')">Read</button>
+        <p id="text-en">
+Shell Type
+sh or Bourne Shell: the original shell still used on UNIX systems and in UNIX-related environments. This is the basic shell, a small program with few features. While this is not the standard shell, it is still available on every Linux system for compatibility with UNIX programs.
+bash or Bourne Again shell: the standard GNU shell, intuitive and flexible. Probably most advisable for beginning users while being at the same time a powerful tool for the advanced and professional user. On Linux, bash is the standard shell for common users. This shell is a so-called superset of the Bourne shell, a set of add-ons and plug-ins. This means that the Bourne Again shell is compatible with the Bourne shell: commands that work in sh, also work in bash. However, the reverse is not always the case. 
+csh or C shell: the syntax of this shell resembles that of the C programming language. Sometimes asked for by programmers.
+tcsh or TENEX C shell: a superset of the common C shell, enhancing user-friendliness and speed. That is why some also call it the Turbo C shell.
+ksh or the Korn shell: sometimes appreciated by people with a UNIX background. A superset of the Bourne shell; with standard configuration a nightmare for beginning users.
+        </p>
+    </div>
+    <div class="info-text">
+        <button class="btn-read" onclick="speakText('es')">Read</button>
+        <p id="text-es">
+Tipos de Shell
+sh o Bourne Shell: el shell original aún usado en sistemas UNIX y entornos relacionados con UNIX. Es el shell básico, un programa pequeño con pocas funciones. Aunque no es el shell estándar, sigue disponible en todos los sistemas Linux por compatibilidad con programas UNIX.
+bash o Bourne Again shell: el shell GNU estándar, intuitivo y flexible. Probablemente el más recomendable para principiantes y, al mismo tiempo, una herramienta poderosa para usuarios avanzados y profesionales. En Linux, bash es el shell estándar para usuarios comunes. Este shell es un superconjunto del Bourne shell, con complementos y extensiones. Esto significa que Bourne Again shell es compatible con Bourne shell: los comandos que funcionan en sh también funcionan en bash. Sin embargo, lo contrario no siempre es cierto.
+csh o C shell: la sintaxis de este shell se asemeja a la del lenguaje de programación C. A veces es solicitado por programadores.
+tcsh o TENEX C shell: un superconjunto del C shell común, que mejora la facilidad de uso y la velocidad. Por eso algunos lo llaman Turbo C shell.
+ksh o Korn shell: a veces apreciado por personas con experiencia en UNIX. Es un superconjunto del Bourne shell; con configuración estándar puede ser complicado para principiantes.
+        </p>
+    </div>
+</div>
+
+<script>
+function speakText(lang){
+    let text = lang==='en' ? document.getElementById("text-en").innerText : document.getElementById("text-es").innerText;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang==='en' ? 'en-US' : 'es-MX';
+    speechSynthesis.speak(utter);
+}
+</script>
+</body>
+</html>

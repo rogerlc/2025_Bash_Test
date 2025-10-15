@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INFO</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: monospace;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #222;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+    .info-container {
+      display: flex;
+      gap: 20px;
+      padding: 10px;
+    }
+    .info-column {
+      flex: 1;
+      border: 1px solid #ccc;
+      padding: 10px;
+      max-height: 90vh;
+      overflow-y: scroll;
+      background-color: #f9f9f9;
+      position: relative;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+      gap: 10px;
+    }
+    button {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>INFO</h1>
+  </header>
+
+  <div class="buttons">
+    <button onclick="readText('english-text', 'en')">Read English</button>
+    <button onclick="readText('spanish-text', 'es')">Leer Español</button>
+  </div>
+
+  <main class="info-container">
+    <div class="info-column" id="english-column">
+      <pre id="english-text">
+STDOUT VS STDERR
+All error messages should go to STDERR.
+This makes it easier to separate normal status from actual issues.
+A function to print out error messages along with other status information is recommended.
+example:
+
+err() {
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $*" >&2
+}
+
+if ! do_something; then
+  err "Unable to do_something"
+  exit 1
+fi
+
+FILE HEADER
+
+Start each file with a description of its contents.
+
+Every file must have a top-level comment including a brief overview of its contents. A copyright notice and author information are optional.
+
+Example:
+
+#!/bin/bash
+#
+# Perform hot backups of Oracle databases.
+
+FUNCTION COMMENTS
+
+Any function that is not both obvious and short must be commented. Any function in a library must be commented regardless of length or complexity.
+
+It should be possible for someone else to learn how to use your program or to use a function in your library by reading the comments (and self-help, if provided) without reading the code.
+
+All function comments should describe the intended API behaviour using:
+
+Description of the function.
+Globals: List of global variables used and modified.
+Arguments: Arguments taken.
+Outputs: Output to STDOUT or STDERR.
+Returns: Returned values other than the default exit status of the last command run.
+
+Example:
+
+#######################################
+# Cleanup files from the backup directory.
+# Globals:
+#   BACKUP_DIR
+#   ORACLE_SID
+# Arguments:
+#   None
+#######################################
+function cleanup() {
+  …
+}
+
+#######################################
+# Get configuration directory.
+# Globals:
+#   SOMEDIR
+# Arguments:
+#   None
+# Outputs:
+#   Writes location to stdout
+#######################################
+function get_dir() {
+  echo "${SOMEDIR}"
+}
+
+#######################################
+# Delete a file in a sophisticated manner.
+# Arguments:
+#   File to delete, a path.
+# Returns:
+#   0 if thing was deleted, non-zero on error.
+#######################################
+function del_thing() {
+  rm "$1"
+}
+
+IMPLEMENTATION COMMENTS
+
+Comment tricky, non-obvious, interesting or important parts of your code.
+
+This follows general Google coding comment practice. Don’t comment everything. If there’s a complex algorithm or you’re doing something out of the ordinary, put a short comment in.
+
+TODO COMMENTS
+
+Use TODO comments for code that is temporary, a short-term solution, or good-enough but not perfect.
+
+TODOs should include the string TODO in all caps, followed by the name, e-mail address, or other identifier of the person with the best context about the problem referenced by the TODO. The main purpose is to have a consistent TODO that can be searched to find out how to get more details upon request. A TODO is not a commitment that the person referenced will fix the problem. Thus when you create a TODO , it is almost always your name that is given.
+
+Examples:
+
+# TODO(mrmonkey): Handle the unlikely edge cases (bug ####)
+
+INDENTATION
+
+Indent 2 spaces. No tabs.
+
+Use blank lines between blocks to improve readability. Indentation is two spaces. Whatever you do, don’t use tabs. For existing files, stay faithful to the existing indentation.
+
+LINE LENGTH AND LONG STRINGS
+
+Maximum line length is 80 characters.
+
+If you have to write strings that are longer than 80 characters, this should be done with a here document or an embedded newline if possible. Literal strings that have to be longer than 80 chars and can’t sensibly be split are ok, but it’s strongly preferred to find a way to make it shorter.
+
+PIPELINES
+
+Pipelines should be split one per line if they don’t all fit on one line.
+
+LOOPS
+
+Put ; do and ; then on the same line as the while, for or if.
+
+CASE STATEMENT
+
+Indent alternatives by 2 spaces.
+A one-line alternative needs a space after the close parenthesis of the pattern and before the ;;.
+Long or multi-command alternatives should be split over multiple lines with the pattern, actions, and ;; on separate lines.
+
+VARIABLE EXPANSION
+
+Stay consistent; quote your variables; prefer "${var}" over "$var".
+
+QUOTING
+
+Always quote strings containing variables, command substitutions, spaces or shell meta characters.
+
+      </pre>
+    </div>
+
+    <div class="info-column" id="spanish-column">
+      <pre id="spanish-text">
+STDOUT VS STDERR
+Todos los mensajes de error deben ir a STDERR.
+Esto facilita la distinción entre el estado normal y los problemas reales.
+Se recomienda una función para imprimir los mensajes de error junto con otra información de estado.
+Ejemplo:
+
+err() {
+  echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $*" >&2
+}
+
+if ! do_something; then
+  err "No se puede hacer_algo"
+  exit 1
+fi
+
+ENCABEZADO DE ARCHIVO
+
+Inicie cada archivo con una descripción de su contenido.
+
+Cada archivo debe incluir un comentario de nivel superior que incluya una breve descripción general de su contenido. El aviso de copyright y la información del autor son opcionales.
+
+Ejemplo:
+
+#!/bin/bash
+#
+# Realizar copias de seguridad en caliente de bases de datos Oracle.
+
+COMENTARIOS DE FUNCIONES
+
+Cualquier función que no sea obvia y breve debe comentarse. Cualquier función de una biblioteca debe comentarse, independientemente de su longitud o complejidad.
+
+Debería ser posible que alguien más aprenda a usar su programa o una función de su biblioteca leyendo los comentarios (y la autoayuda, si se proporciona) sin leer el código.
+
+Todos los comentarios de funciones deben describir el comportamiento previsto de la API mediante:
+
+Descripción de la función.
+Globales: Lista de variables globales utilizadas y modificadas.
+Argumentos: Argumentos utilizados.
+Salidas: Salida a STDOUT o STDERR.
+Retornos: Valores devueltos distintos del estado de salida predeterminado de la última ejecución del comando.
+
+Ejemplo:
+
+#######################################
+# Limpiar archivos del directorio de respaldo.
+# Globales:
+#   BACKUP_DIR
+#   ORACLE_SID
+# Argumentos:
+#   Ninguno
+#######################################
+function cleanup() {
+  …
+}
+
+#######################################
+# Obtener el directorio de configuración.
+# Globales:
+#   SOMEDIR
+# Argumentos:
+#   Ninguno
+# Salidas:
+#   Escribe la ubicación en la salida estándar
+#######################################
+function get_dir() {
+  echo "${SOMEDIR}"
+}
+
+#######################################
+# Eliminar un archivo de forma sofisticada.
+# Argumentos:
+#   Archivo a eliminar, una ruta.
+# Devuelve:
+#   0 si se eliminó el objeto, distinto de cero en caso de error.
+#######################################
+function del_thing() {
+  rm "$1"
+}
+
+COMENTARIOS DE IMPLEMENTACIÓN
+
+Comente las partes complejas, poco obvias, interesantes o importantes de su código.
+
+COMENTARIOS DE TAREAS (TODO)
+
+Use comentarios TODO para código temporal, soluciones a corto plazo o "suficientemente bueno".
+
+Los TODO deben incluir la palabra "TODO" en mayúsculas, seguida del nombre, correo o identificador de la persona con mejor contexto sobre el problema. Un TODO no implica que la persona vaya a arreglarlo; generalmente se usa tu nombre.
+
+INDENTACIÓN
+
+Sangría de 2 espacios. Sin tabulaciones.
+
+LONGITUD DE LÍNEA Y CADENAS LARGAS
+
+Máx. 80 caracteres por línea.
+
+TUBERÍAS
+
+Una tubería por línea si no cabe en una línea.
+
+BUCLES
+
+Coloca ; do y ; then en la misma línea que while, for o if.
+
+DECLARACIÓN CASE
+
+Sangría 2 espacios. Alternativa de línea única: espacio después del paréntesis antes de ;;. Larga: patrón, acciones, ;; líneas separadas.
+
+EXPANSIÓN DE VARIABLES
+
+Mantener consistencia; entrecomille variables; prefiera "${var}" sobre "$var".
+
+COMILLAS
+
+Siempre entrecomille strings con variables, sustituciones, espacios o meta caracteres.
+
+      </pre>
+    </div>
+  </main>
+
+  <script>
+    const englishColumn = document.getElementById('english-column');
+    const spanishColumn = document.getElementById('spanish-column');
+
+    // Scroll sincronizado
+    let isSyncingScroll = false;
+    englishColumn.addEventListener('scroll', () => {
+      if (!isSyncingScroll) {
+        isSyncingScroll = true;
+        spanishColumn.scrollTop = englishColumn.scrollTop;
+        isSyncingScroll = false;
+      }
+    });
+    spanishColumn.addEventListener('scroll', () => {
+      if (!isSyncingScroll) {
+        isSyncingScroll = true;
+        englishColumn.scrollTop = spanishColumn.scrollTop;
+        isSyncingScroll = false;
+      }
+    });
+
+    // Leer texto en voz alta
+    function readText(id, lang) {
+      const text = document.getElementById(id).innerText;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      speechSynthesis.speak(utterance);
+    }
+
+    // Botones scroll al inicio
+    function scrollToStart(id) {
+      const element = document.getElementById(id);
+      element.parentElement.scrollTop = 0;
+    }
+  </script>
+</body>
+</html>

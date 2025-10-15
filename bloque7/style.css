@@ -1,0 +1,24 @@
+body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#f0f2f5; margin:0; padding:0;}
+header { background:linear-gradient(90deg,#4facfe,#00f2fe); color:white; text-align:center; padding:20px 0; box-shadow:0 4px 6px rgba(0,0,0,0.1);}
+main { padding:20px; display:flex; flex-direction:column; gap:20px;}
+.question { background:white; padding:15px 20px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+.question p { font-weight:bold; margin-bottom:10px;}
+label { display:block; margin:5px 0; cursor:pointer;}
+button { padding:8px 15px; margin:5px 5px 0 0; border:none; border-radius:5px; cursor:pointer; font-weight:bold;}
+.btn-read { background:#6c5ce7; color:white;}
+.btn-translate { background:#fd79a8; color:white;}
+.btn-pronounce { background:#00b894; color:white;}
+.btn-green { background-color:#00b894; color:white;}
+.btn-red { background-color:#d63031; color:white;}
+.btn-yellow { background-color:#fdcb6e; color:black;}
+.btn-info { background-color:#0984e3; color:white;}
+.correct { background-color:#c8f7c5 !important;}
+.incorrect { background-color:#f7c5c5 !important;}
+.info-container { display:flex; gap:20px; padding:20px;}
+.info-text { background:white; padding:20px; border-radius:10px; flex:1; box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+.modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; overflow:auto; background-color: rgba(0,0,0,0.5);}
+.modal-content { background-color:#fff; margin:15% auto; padding:20px; border-radius:10px; width:80%; max-width:600px; text-align:center;}
+.modal-content h3 { margin-top:0;}
+.close { color:#aaa; float:right; font-size:28px; font-weight:bold; cursor:pointer;}
+.correct-word { color:green; font-weight:bold;}
+.incorrect-word { color:red; font-weight:bold;}

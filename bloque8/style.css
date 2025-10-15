@@ -1,0 +1,27 @@
+/* Bloque 8 -- estilo consistente con bloque7 */
+body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#f0f2f5; margin:0; padding:0; color:#222; }
+header { background:linear-gradient(90deg,#4facfe,#00f2fe); color:white; text-align:center; padding:18px 0; box-shadow:0 4px 6px rgba(0,0,0,0.08); }
+main { padding:18px; display:flex; flex-direction:column; gap:14px; max-width:980px; margin:0 auto; }
+.question { background:white; padding:14px 18px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.06); }
+.question p { font-weight:700; margin:0 0 10px 0; }
+label { display:block; margin:6px 0; padding:8px; border-radius:6px; cursor:pointer; transition:background .12s; }
+label input { margin-right:10px; }
+button { padding:8px 14px; margin:6px 6px 0 0; border:none; border-radius:6px; cursor:pointer; font-weight:700; }
+.btn-read { background:#6c5ce7; color:white; }
+.btn-translate { background:#fd79a8; color:white; }
+.btn-pronounce { background:#00b894; color:white; }
+footer { display:flex; justify-content:center; gap:12px; padding:18px; background:#dfe6e9; position:sticky; bottom:0; }
+.btn-green { background-color:#00b894; color:white; }
+.btn-red { background-color:#d63031; color:white; }
+.btn-yellow { background-color:#fdcb6e; color:black; }
+.btn-info { background-color:#0984e3; color:white; }
+.correct { background-color:#dff7e6 !important; border:1px solid #7fe0a9 !important; }
+.incorrect { background-color:#fde2e2 !important; border:1px solid #f08a8a !important; }
+.modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; overflow:auto; background-color: rgba(0,0,0,0.45); }
+.modal-content { background-color:#fff; margin:8% auto; padding:18px; border-radius:10px; width:90%; max-width:680px; text-align:left; box-shadow:0 6px 18px rgba(0,0,0,0.12); }
+.close { color:#aaa; float:right; font-size:26px; font-weight:bold; cursor:pointer; }
+.correct-word { color:green; font-weight:700; }
+.incorrect-word { color:red; font-weight:700; }
+.info-container { display:flex; gap:20px; padding:18px; }
+.info-text { background:white; padding:16px; border-radius:10px; flex:1; box-shadow:0 2px 6px rgba(0,0,0,0.06); overflow:auto; max-height:78vh; }
+pre { white-space:pre-wrap; word-wrap:break-word; }
